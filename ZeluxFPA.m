@@ -1,8 +1,8 @@
 classdef ZeluxFPA < handle
-    % This is a class to control the ThorLabs ELL18 rotation stage
+    % This is a class to control the ThorLabs Zelux cameras
     
     properties
-        stored_SNs = [09944, 09945, 14030, 14238, 14239, 14029, 14057, 14058];
+        stored_SNs = []; % You can fill this with the serial numbers of your cameras.
         dirCam = 'C:\Program Files\Thorlabs\Scientific Imaging\Scientific Camera Support\Scientific Camera Interfaces\SDK\DotNet Toolkit\dlls\Managed_64_lib\';
         
         exp_t = 0.04; % [ms] exposure time. min = 0.04  max = 20,000
@@ -19,14 +19,14 @@ classdef ZeluxFPA < handle
         function obj = ZeluxFPA(camSN) % This is the constructor
 
             if nargin ~= 1 % Check to ensure
-                error('Require a serial number or FPA number to initialize the FPA');
+                error('Require a serial number or index to initialize the camera');
             end
 
             if camSN <= length(obj.stored_SNs) % If the camera's SN is stored above, it can be selected directly
                 obj.SN = obj.stored_SNs(camSN);
             else 
-                if (camSN < 1000) | (camSN > 20000) % If the user input is outside a certain range, return an error
-                    error('Invalid camera number.');
+                if (camSN < 1000) | (camSN > 50000) % If the user input is outside a certain range, return an error
+                    error('Camera number out of range.');
                 end
                 obj.SN = camSN; % If the user input is within a range, assume it's the camera's SN
             end
