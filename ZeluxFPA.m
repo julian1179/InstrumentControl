@@ -211,6 +211,9 @@ classdef ZeluxFPA < handle
                     delete(imageFrame);
                 end
             end
+            if n == 1
+               im = im{1};
+            end
             obj.tlCamera.Disarm;
             cd(dirbackup);
         end
@@ -224,7 +227,7 @@ classdef ZeluxFPA < handle
                 end
                 image = image./n;
             else
-                image = im{1}; 
+                image = im; 
             end
         end
         
