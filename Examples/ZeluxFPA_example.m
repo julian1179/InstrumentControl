@@ -1,8 +1,9 @@
 % Make sure the "dirCam" property in the ZeluxFPA.m classdef is configured
 % to the location of the Thorlabs.TSI.TLCamera.dll The default location is:
 %       C:\Program Files\Thorlabs\Scientific Imaging\Scientific Camera Support\Scientific Camera Interfaces\SDK\DotNet Toolkit\dlls\Managed_64_lib\
-% This code connects Three ThorLabs Zelux cameras, configures them to their
-% respective exposure times
+% This code connects Three ThorLabs Zelux cameras, loads the ThorLabs SDK,
+% configures their respective exposure times, captures images, disconnects
+% the cameras, and then unloads the SDK.
 clear *
 clc
 
@@ -47,5 +48,8 @@ cam3.close();
 
 cam1.closeSDK(); % The SDK only needs to be closed in the first camera,
                  % because that's where it was initially loaded.
+% Note: It is extremely important to close the cameras and SDK in the
+% correct order, otherwise they get stuck in a communication loop and you
+% may need to restart the computer.
 % ------------------------------------------------------------------------
 
