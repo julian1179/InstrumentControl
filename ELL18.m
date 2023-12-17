@@ -84,9 +84,9 @@ classdef ELL18 < handle
                 p = msg2double(rx, 5, endIn);
                 obj.Pos = p.*360/obj.Scaling;
                 obj.HomePos = 0;
-                if obj.ShowStatus==1, disp(sprintf('----Homing complete. Current position: %.3f °', obj.Pos)); end
+                if obj.ShowStatus==1, fprintf('----Homing complete. Current position: %.3f °\n', obj.Pos); end
             else
-            	if obj.ShowStatus==1, disp(sprintf(['----Homing move-absolute returned error: ',rx])); end
+            	if obj.ShowStatus==1, fprintf(['----Homing move-absolute returned error: ',rx,'\n']); end
             end
             disp(' ');
         end
@@ -97,7 +97,7 @@ classdef ELL18 < handle
             rx = readline(obj.ser);
             endIn = strlength(rx);
             obj.Vel = msg2double(rx, endIn-1,endIn);
-            if obj.ShowStatus==1, disp(sprintf('Velocity currently set to %d%%', obj.Vel)); end
+            if obj.ShowStatus==1, fprintf('Velocity currently set to %d%%\n', obj.Vel); end
             pause(0.1);
         end
         
@@ -113,9 +113,9 @@ classdef ELL18 < handle
                % Check for errors
                if hex2dec(extractBetween(rx,endIn-1,endIn)) == 0
                    obj.Vel = v;
-                   if obj.ShowStatus==1, disp(sprintf('----Velocity succesfully set to %d%%', v)); end
+                   if obj.ShowStatus==1, fprintf('----Velocity succesfully set to %d%%\n', v); end
                else
-                   if obj.ShowStatus==1, disp(sprintf(['----Velocity set returned error: ',rx])); end
+                   if obj.ShowStatus==1, fprintf(['----Velocity set returned error: ',rx,'\n']); end
                end
             end
             disp(' ');
@@ -129,7 +129,7 @@ classdef ELL18 < handle
             
             p = msg2double(rx, 5, endIn);
             obj.Pos = p.*360/obj.Scaling;
-            if obj.ShowStatus==1, disp(sprintf('Current position: %.3f °', obj.Pos-obj.HomePos)); end
+            if obj.ShowStatus==1, fprintf('Current position: %.3f °\n', obj.Pos-obj.HomePos); end
             pause(0.1);
         end
 
@@ -155,9 +155,9 @@ classdef ELL18 < handle
             if extractBetween(rx,2,4) == [obj.Address,'PO']
                 p = msg2double(rx, 5, endIn);
                 obj.Pos = p.*360/obj.Scaling;
-                if obj.ShowStatus==1, disp(sprintf('Moved to position: %.3f °', obj.Pos-obj.HomePos)); end
+                if obj.ShowStatus==1, fprintf('Moved to position: %.3f °\n', obj.Pos-obj.HomePos); end
             else
-                if obj.ShowStatus==1, disp(sprintf(['Move-absolute returned error: ',rx])); end
+                if obj.ShowStatus==1, fprintf(['Move-absolute returned error: ',rx,'\n']); end
             end 
             disp(' ');
         end
@@ -190,9 +190,9 @@ classdef ELL18 < handle
             if extractBetween(rx,2,4) == [obj.Address,'PO']
                 p = msg2double(rx, 5, endIn);
                 obj.Pos = p.*360/obj.Scaling;
-                if obj.ShowStatus==1, disp(sprintf('Moved to position: %.3f °', obj.Pos-obj.HomePos)); end
+                if obj.ShowStatus==1, fprintf('Moved to position: %.3f °\n', obj.Pos-obj.HomePos); end
             else
-                if obj.ShowStatus==1, disp(sprintf(['Move-absolute returned error: ',rx])); end
+                if obj.ShowStatus==1, fprintf(['Move-absolute returned error: ',rx,'\n']); end
             end 
             disp(' ');
         end
