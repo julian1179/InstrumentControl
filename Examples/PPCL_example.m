@@ -1,13 +1,17 @@
+% The PPCL.m file requires the ITLA_command.m file to work.
+% This code connects two PurePhotonics PPCL lasers, configures
+% them to their respective wavelengths and power, ensures they
+% are off, and then turns them on.
+
 clear *
 clc
 
 las1558 = PPCL(serialport("COM6", 9600));
-las1558.MaxPwr = 1700;
-las1558.setPwr(las1558.MaxPwr);
+las1558.MaxPwr = 1700; % Set max power to 17 dBm
+las1558.setPwr(las1558.MaxPwr); % 100x the dBm you want to set.
 
 las1556 = PPCL(serialport("COM7", 9600));
-las1556.MaxPwr = 1700;
-las1556.setPwr(las1556.MaxPwr);
+las1556.setPwr(las1556.MaxPwr); % Default Max power is 13.5 dBm.
 
 %%
 las1558.Off();
